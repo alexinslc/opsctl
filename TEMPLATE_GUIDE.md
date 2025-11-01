@@ -30,26 +30,67 @@ This is a complete platform engineering template repository. Here's what's inclu
 ## Quick Start
 
 1. **Use this template** on GitHub to create a new repository
+
 2. **Clone your new repository**:
    ```bash
    git clone <your-repo-url>
    cd <your-repo-name>
    ```
+
 3. **Install dependencies**:
+   
+   **macOS/Linux:**
    ```bash
    make install
+   # or
+   uv sync
    ```
+   
+   **Windows (PowerShell):**
+   ```powershell
+   uv sync
+   ```
+
 4. **Run tests**:
+   
+   **macOS/Linux:**
    ```bash
    make test
+   # or
+   uv run pytest
    ```
+   
+   **Windows (PowerShell):**
+   ```powershell
+   uv run pytest
+   ```
+
 5. **Try the CLI**:
+   
+   **macOS/Linux:**
    ```bash
    make run-cli
+   # or
+   uv run opsctl hello
    ```
+   
+   **Windows (PowerShell):**
+   ```powershell
+   uv run opsctl hello
+   ```
+
 6. **Start the API**:
+   
+   **macOS/Linux:**
    ```bash
    make run-api
+   # or
+   uv run uvicorn opsctl_api.main:app --reload
+   ```
+   
+   **Windows (PowerShell):**
+   ```powershell
+   uv run uvicorn opsctl_api.main:app --reload
    ```
 
 ## Customization
@@ -99,6 +140,7 @@ Then run: `make install`
 
 ## Available Commands
 
+**macOS/Linux (using Make):**
 ```bash
 make help        # Show all available commands
 make install     # Install/update dependencies
@@ -113,6 +155,21 @@ make run-api     # Start the API server
 make all         # Run lint, typecheck, and test
 make clean       # Remove all cache and build files
 ```
+
+**Windows (using uv directly):**
+```powershell
+uv sync                                        # Install/update dependencies
+uv run pytest                                  # Run all tests
+uv run pytest --cov=packages --cov-report=html # Run tests with coverage
+uv run ruff check .                            # Check code style
+uv run ruff check --fix .                      # Auto-fix code style issues
+uv run ruff format .                           # Format code
+uv run mypy packages/cli/src packages/api/src  # Run type checking
+uv run opsctl --help                           # Run the CLI
+uv run uvicorn opsctl_api.main:app --reload    # Start the API server
+```
+
+> **Note for Windows users**: The Makefile requires Make for Windows (e.g., via Chocolatey: `choco install make`) or you can use the `uv` commands directly as shown above.
 
 ## CI/CD
 

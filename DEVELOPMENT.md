@@ -7,8 +7,25 @@ This guide will help you get started with developing in this monorepo template.
 ## Setup
 
 1. **Install uv** (if not already installed):
+
+   **macOS/Linux:**
    ```bash
    pip install uv
+   ```
+   
+   Or using the official installer:
+   ```bash
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   ```
+
+   **Windows:**
+   ```powershell
+   pip install uv
+   ```
+   
+   Or using PowerShell with the official installer:
+   ```powershell
+   powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
    ```
 
 2. **Clone the repository**:
@@ -28,11 +45,34 @@ This will create a virtual environment at `.venv/` and install all dependencies.
 
 ### Running the CLI
 
+**macOS/Linux:**
 ```bash
 # Activate the virtual environment (optional, uv run will handle this)
-source .venv/bin/activate  # On Unix/macOS
-# or
-.venv\Scripts\activate  # On Windows
+source .venv/bin/activate
+
+# Run the CLI
+uv run opsctl --help
+uv run opsctl hello
+uv run opsctl hello "Your Name"
+uv run opsctl version
+```
+
+**Windows (PowerShell):**
+```powershell
+# Activate the virtual environment (optional, uv run will handle this)
+.venv\Scripts\Activate.ps1
+
+# Run the CLI
+uv run opsctl --help
+uv run opsctl hello
+uv run opsctl hello "Your Name"
+uv run opsctl version
+```
+
+**Windows (Command Prompt):**
+```cmd
+# Activate the virtual environment (optional, uv run will handle this)
+.venv\Scripts\activate.bat
 
 # Run the CLI
 uv run opsctl --help
@@ -200,9 +240,19 @@ async def new_endpoint() -> dict[str, str]:
 
 If you encounter issues with the virtual environment:
 
+**macOS/Linux:**
 ```bash
 # Remove the virtual environment
 rm -rf .venv
+
+# Recreate it
+uv sync
+```
+
+**Windows (PowerShell):**
+```powershell
+# Remove the virtual environment
+Remove-Item -Recurse -Force .venv
 
 # Recreate it
 uv sync
@@ -212,8 +262,19 @@ uv sync
 
 Make sure you're running commands with `uv run` or have activated the virtual environment:
 
+**macOS/Linux:**
 ```bash
-source .venv/bin/activate  # On Unix/macOS
+source .venv/bin/activate
+```
+
+**Windows (PowerShell):**
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+**Windows (Command Prompt):**
+```cmd
+.venv\Scripts\activate.bat
 ```
 
 ### Port Already in Use

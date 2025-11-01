@@ -2,6 +2,8 @@
 
 A template repository for platform engineering projects using a monorepo structure with separate CLI and API packages.
 
+> **Cross-Platform Support**: This template works on macOS, Linux, and Windows. Commands are provided for both Unix-like systems and Windows where they differ.
+
 ## 🚀 Technologies
 
 - **CLI**: [Typer](https://typer.tiangolo.com/) - Modern CLI framework
@@ -42,24 +44,68 @@ opsctl/
 ### Prerequisites
 
 - Python 3.12+
-- uv (install with `pip install uv`)
+- uv package manager
+
+**Installing uv:**
+
+<details>
+<summary><b>macOS/Linux</b></summary>
+
+```bash
+pip install uv
+```
+
+Or using the official installer:
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+</details>
+
+<details>
+<summary><b>Windows</b></summary>
+
+```powershell
+pip install uv
+```
+
+Or using PowerShell with the official installer:
+```powershell
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+</details>
 
 ### Installation
 
 1. Clone this repository:
+
+**macOS/Linux:**
 ```bash
 git clone <repository-url>
 cd opsctl
 ```
 
+**Windows:**
+```powershell
+git clone <repository-url>
+cd opsctl
+```
+
 2. Install dependencies:
+
+**macOS/Linux:**
 ```bash
 uv sync
 # or
 make install
 ```
 
-3. Install packages in development mode:
+**Windows (PowerShell):**
+```powershell
+uv sync
+# Note: Makefile commands require Make for Windows or use uv directly
+```
+
+3. Install packages in development mode (optional):
 ```bash
 uv pip install -e packages/cli -e packages/api
 ```
@@ -69,22 +115,39 @@ uv pip install -e packages/cli -e packages/api
 ### CLI
 
 Run the CLI:
+
+**macOS/Linux:**
 ```bash
-opsctl hello
-opsctl hello World
-opsctl version
-opsctl --help
-# or
+uv run opsctl hello
+uv run opsctl hello World
+uv run opsctl version
+uv run opsctl --help
+# or using make
 make run-cli
+```
+
+**Windows (PowerShell):**
+```powershell
+uv run opsctl hello
+uv run opsctl hello World
+uv run opsctl version
+uv run opsctl --help
 ```
 
 ### API
 
 Start the API server:
+
+**macOS/Linux:**
 ```bash
-uvicorn opsctl_api.main:app --reload
-# or
+uv run uvicorn opsctl_api.main:app --reload
+# or using make
 make run-api
+```
+
+**Windows (PowerShell):**
+```powershell
+uv run uvicorn opsctl_api.main:app --reload
 ```
 
 The API will be available at:
@@ -93,10 +156,20 @@ The API will be available at:
 - ReDoc: http://localhost:8000/redoc
 
 Try the endpoints:
+
+**macOS/Linux:**
 ```bash
 curl http://localhost:8000/
 curl http://localhost:8000/health
 curl http://localhost:8000/hello/World
+```
+
+**Windows (PowerShell):**
+```powershell
+Invoke-WebRequest http://localhost:8000/
+Invoke-WebRequest http://localhost:8000/health
+Invoke-WebRequest http://localhost:8000/hello/World
+# Or install curl for Windows and use curl commands
 ```
 
 ### Using Docker Compose
@@ -109,17 +182,31 @@ docker-compose up
 ## 🧪 Testing
 
 Run all tests:
+
+**macOS/Linux:**
 ```bash
 uv run pytest
 # or
 make test
 ```
 
+**Windows (PowerShell):**
+```powershell
+uv run pytest
+```
+
 Run tests with coverage:
+
+**macOS/Linux:**
 ```bash
 uv run pytest --cov=packages --cov-report=html
 # or
 make test-cov
+```
+
+**Windows (PowerShell):**
+```powershell
+uv run pytest --cov=packages --cov-report=html
 ```
 
 Run tests for a specific package:
@@ -131,36 +218,74 @@ uv run pytest packages/api/tests
 ## 🔍 Linting and Type Checking
 
 Run ruff linter:
+
+**macOS/Linux:**
 ```bash
 uv run ruff check .
 # or
 make lint
 ```
 
+**Windows (PowerShell):**
+```powershell
+uv run ruff check .
+```
+
 Auto-fix linting issues:
+
+**macOS/Linux:**
 ```bash
 uv run ruff check --fix .
 # or
 make lint-fix
 ```
 
+**Windows (PowerShell):**
+```powershell
+uv run ruff check --fix .
+```
+
 Format code:
+
+**macOS/Linux:**
 ```bash
 uv run ruff format .
 # or
 make format
 ```
 
+**Windows (PowerShell):**
+```powershell
+uv run ruff format .
+```
+
 Run type checking:
+
+**macOS/Linux:**
 ```bash
 uv run mypy packages/cli/src packages/api/src
 # or
 make typecheck
 ```
 
+**Windows (PowerShell):**
+```powershell
+uv run mypy packages/cli/src packages/api/src
+```
+
 Run all checks:
+
+**macOS/Linux:**
 ```bash
 make all
+```
+
+**Windows (PowerShell):**
+```powershell
+# Run each command separately
+uv run ruff check .
+uv run mypy packages/cli/src packages/api/src
+uv run pytest
 ```
 
 ## 📦 Building
