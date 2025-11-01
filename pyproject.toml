@@ -4,7 +4,10 @@ version = "0.1.0"
 description = "Template monorepo for platform engineering projects"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "api",
+    "cli",
+]
 
 [project.optional-dependencies]
 dev = [
@@ -18,6 +21,10 @@ dev = [
 
 [tool.uv.workspace]
 members = ["api", "cli"]
+
+[tool.uv.sources]
+api = { workspace = true }
+cli = { workspace = true }
 
 [tool.ruff]
 line-length = 100
@@ -67,6 +74,7 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["api/tests", "cli/tests"]
+pythonpath = ["api/src", "cli/src"]
 python_files = ["test_*.py", "*_test.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
@@ -74,4 +82,5 @@ addopts = [
     "--strict-markers",
     "--strict-config",
     "-ra",
+    "--import-mode=importlib",
 ]
