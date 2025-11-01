@@ -1,0 +1,67 @@
+{
+  "name": "Platform Engineering Template",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "dev",
+  "workspaceFolder": "/workspace",
+
+  // Configure tool-specific properties
+  "customizations": {
+    "vscode": {
+      // Set container-specific settings
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": false,
+        "python.linting.flake8Enabled": false,
+        "python.formatting.provider": "none",
+        "python.analysis.typeCheckingMode": "basic",
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit",
+            "source.organizeImports": "explicit"
+          }
+        },
+        "files.exclude": {
+          "**/__pycache__": true,
+          "**/.pytest_cache": true,
+          "**/.ruff_cache": true,
+          "**/.mypy_cache": true
+        }
+      },
+
+      // Add extensions
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "tamasfe.even-better-toml",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "usernamehw.errorlens",
+        "eamodio.gitlens"
+      ]
+    }
+  },
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally
+  "forwardPorts": [8000],
+
+  // Port attributes
+  "portsAttributes": {
+    "8000": {
+      "label": "FastAPI",
+      "onAutoForward": "notify"
+    }
+  },
+
+  // Use 'postCreateCommand' to run commands after the container is created
+  "postCreateCommand": "uv sync",
+
+  // Comment out to run as root instead
+  "remoteUser": "root",
+
+  // Keep container running
+  "overrideCommand": true
+}

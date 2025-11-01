@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # Development environment with all tools
+  dev:
+    build:
+      context: .
+      target: dev
+    volumes:
+      - .:/workspace
+      - uv-cache:/root/.cache/uv
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+
+  # FastAPI service
+  api:
+    build:
+      context: .
+      target: api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api:/workspace/api
+      - uv-cache:/root/.cache/uv
+    environment:
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - API_RELOAD=true
+      - DEBUG=true
+    command: uv run --directory api uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # CLI service
+  cli:
+    build:
+      context: .
+      target: cli
+    volumes:
+      - ./cli:/workspace/cli
+      - uv-cache:/root/.cache/uv
+    stdin_open: true
+    tty: true
+
+volumes:
+  uv-cache:
