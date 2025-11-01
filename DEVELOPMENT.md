@@ -4,7 +4,50 @@
 
 This guide will help you get started with developing in this monorepo template.
 
-## Setup
+## Setup Options
+
+### Option 1: Dev Container (Recommended)
+
+The easiest way to get started with a consistent development environment across all platforms.
+
+**Prerequisites:**
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- [VS Code](https://code.visualstudio.com/)
+- [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+**Steps:**
+
+1. **Clone the repository**:
+   ```bash
+   git clone <your-repo-url>
+   cd opsctl
+   ```
+
+2. **Open in VS Code**:
+   ```bash
+   code .
+   ```
+
+3. **Reopen in Container**:
+   - Click "Reopen in Container" when prompted
+   - Or press `F1` and select "Dev Containers: Reopen in Container"
+
+4. **Start developing**:
+   The container will automatically install all dependencies via the `postCreateCommand`. Once ready:
+   ```bash
+   make test      # Run tests
+   make run-cli   # Run the CLI
+   make run-api   # Start the API
+   ```
+
+**Benefits:**
+- ✅ Works identically on macOS, Linux, and Windows
+- ✅ No need to install Python or uv locally
+- ✅ Pre-configured VS Code extensions and settings
+- ✅ Isolated environment per project
+- ✅ Automatic port forwarding
+
+### Option 2: Local Setup
 
 1. **Install uv** (if not already installed):
 

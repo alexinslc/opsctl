@@ -2,7 +2,7 @@
 
 A template repository for platform engineering projects using a monorepo structure with separate CLI and API packages.
 
-> **Cross-Platform Support**: This template works on macOS, Linux, and Windows. Commands are provided for both Unix-like systems and Windows where they differ.
+> **🎯 Recommended**: Use the included [Dev Container](#-setup-with-dev-container-recommended) for the best cross-platform development experience!
 
 ## 🚀 Technologies
 
@@ -17,29 +17,78 @@ A template repository for platform engineering projects using a monorepo structu
 
 ```
 opsctl/
+├── .devcontainer/
+│   ├── devcontainer.json      # Dev Container configuration
+│   ├── docker-compose.yml     # Dev Container Docker Compose
+│   └── Dockerfile             # Dev Container Dockerfile
 ├── .github/
 │   └── workflows/
-│       └── ci.yml           # GitHub Actions CI workflow
+│       └── ci.yml             # GitHub Actions CI workflow
 ├── packages/
-│   ├── api/                 # FastAPI application
+│   ├── api/                   # FastAPI application
 │   │   ├── src/
 │   │   │   └── opsctl_api/
 │   │   ├── tests/
 │   │   └── pyproject.toml
-│   └── cli/                 # Typer CLI application
+│   └── cli/                   # Typer CLI application
 │       ├── src/
 │       │   └── opsctl_cli/
 │       ├── tests/
 │       └── pyproject.toml
-├── pyproject.toml           # Workspace configuration
-├── Makefile                 # Common development tasks
-├── docker-compose.yml       # Docker Compose for development
-├── Dockerfile.api           # Dockerfile for API service
-├── DEVELOPMENT.md           # Detailed development guide
-└── CONTRIBUTING.md          # Contribution guidelines
+├── pyproject.toml             # Workspace configuration
+├── Makefile                   # Common development tasks
+├── docker-compose.yml         # Docker Compose for development
+├── Dockerfile.api             # Dockerfile for API service
+├── DEVELOPMENT.md             # Detailed development guide
+└── CONTRIBUTING.md            # Contribution guidelines
 ```
 
-## 🛠️ Setup
+## 🛠️ Setup with Dev Container (Recommended)
+
+The easiest and most consistent way to develop across all platforms (macOS, Linux, Windows).
+
+### Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop) (or Docker Engine + Docker Compose)
+- [VS Code](https://code.visualstudio.com/) with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+### Quick Start
+
+1. Clone this repository:
+   ```bash
+   git clone <repository-url>
+   cd opsctl
+   ```
+
+2. Open in VS Code:
+   ```bash
+   code .
+   ```
+
+3. When prompted, click **"Reopen in Container"** (or press `F1` and select "Dev Containers: Reopen in Container")
+
+4. VS Code will build the container and set up the environment automatically. Once ready, you can:
+   ```bash
+   # Run tests
+   make test
+   
+   # Run the CLI
+   uv run opsctl hello
+   
+   # Start the API
+   make run-api
+   ```
+
+**Benefits:**
+- ✅ Identical environment across all platforms
+- ✅ No local Python installation needed
+- ✅ Pre-configured VS Code settings and extensions
+- ✅ All dependencies pre-installed
+- ✅ Port forwarding configured automatically
+
+## 🛠️ Local Setup (Alternative)
+
+If you prefer to develop locally without containers:
 
 ### Prerequisites
 

@@ -11,6 +11,7 @@ This is a complete platform engineering template repository. Here's what's inclu
 - ✅ **Package Manager**: uv for fast dependency management
 
 ### Development Tools
+- ✅ **Dev Container**: Pre-configured development container for VS Code (recommended)
 - ✅ **Testing**: pytest with coverage support
 - ✅ **Linting**: ruff for fast linting and formatting
 - ✅ **Type Checking**: mypy for static type analysis
@@ -24,10 +25,38 @@ This is a complete platform engineering template repository. Here's what's inclu
 - ✅ **Package READMEs**: Individual docs for CLI and API
 
 ### Docker Support
+- ✅ **Dev Container**: Full VS Code development container setup
 - ✅ **docker-compose.yml**: Quick start for development
 - ✅ **Dockerfile.api**: Production-ready API container
 
 ## Quick Start
+
+### Recommended: Using Dev Container
+
+1. **Prerequisites**:
+   - Install [Docker Desktop](https://www.docker.com/products/docker-desktop)
+   - Install [VS Code](https://code.visualstudio.com/)
+   - Install [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+2. **Clone and open**:
+   ```bash
+   git clone <your-repo-url>
+   cd <your-repo-name>
+   code .
+   ```
+
+3. **Reopen in Container**:
+   - Click "Reopen in Container" when prompted
+   - Wait for container to build and dependencies to install
+
+4. **Start developing**:
+   ```bash
+   make test      # Run tests
+   make run-cli   # Run CLI
+   make run-api   # Start API
+   ```
+
+### Alternative: Local Setup
 
 1. **Use this template** on GitHub to create a new repository
 
