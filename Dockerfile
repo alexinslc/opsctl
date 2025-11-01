@@ -1,5 +1,5 @@
 # Multi-stage Dockerfile for both API and CLI
-FROM python:3.11-slim as base
+FROM python:3.11-slim AS base
 
 # Install uv
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
@@ -7,41 +7,43 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 # Set working directory
 WORKDIR /workspace
 
-# Copy workspace configuration
+# Copy workspace configuration and member pyproject.toml files
 COPY pyproject.toml ./
+COPY api/pyproject.toml api/
+COPY cli/pyproject.toml cli/
 
 # API stage
-FROM base as api
+FROM base AS api
 
-# Copy API project files
-COPY api/pyproject.toml api/
+# Copy source files for both workspace members (needed for dependency resolution)
 COPY api/src api/src/
+COPY cli/src cli/src/
 
-# Install dependencies
-RUN cd api && uv sync --no-dev
+# Install dependencies from workspace root
+RUN uv sync --no-dev
 
 # Expose API port
 EXPOSE 8000
 
 # Run API
-CMD ["uv", "run", "--directory", "api", "uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uv", "run", "uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 # CLI stage
-FROM base as cli
+FROM base AS cli
 
-# Copy CLI project files
-COPY cli/pyproject.toml cli/
+# Copy source files for both workspace members (needed for dependency resolution)
+COPY api/src api/src/
 COPY cli/src cli/src/
 
-# Install dependencies
-RUN cd cli && uv sync --no-dev
+# Install dependencies from workspace root
+RUN uv sync --no-dev
 
 # Set entrypoint to CLI
-ENTRYPOINT ["uv", "run", "--directory", "cli", "platform-cli"]
+ENTRYPOINT ["uv", "run", "platform-cli"]
 CMD ["--help"]
 
 # Development stage with all tools
-FROM base as dev
+FROM base AS dev
 
 # Install system dependencies for development
 RUN apt-get update && apt-get install -y \
