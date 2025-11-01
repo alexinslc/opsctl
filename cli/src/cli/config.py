@@ -1,7 +1,6 @@
 """CLI configuration."""
 
 from pathlib import Path
-from typing import Optional
 
 from pydantic import BaseModel
 
@@ -18,7 +17,7 @@ class CLIConfig(BaseModel):
         self.config_dir.mkdir(parents=True, exist_ok=True)
 
 
-def load_config(config_path: Optional[Path] = None) -> CLIConfig:
+def load_config(config_path: Path | None = None) -> CLIConfig:
     """Load CLI configuration."""
     if config_path and config_path.exists():
         # In a real implementation, you would load from file

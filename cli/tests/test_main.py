@@ -1,8 +1,7 @@
 """Tests for the CLI application."""
 
-from typer.testing import CliRunner
-
 from cli.main import app
+from typer.testing import CliRunner
 
 runner = CliRunner()
 

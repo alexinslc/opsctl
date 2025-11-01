@@ -42,7 +42,7 @@ def example(
     for i in range(count):
         if verbose:
             console.print(f"[yellow]Executing iteration {i + 1}/{count}[/yellow]")
-        console.print(f"[green]Example command executed![/green]")
+        console.print("[green]Example command executed![/green]")
 
 
 if __name__ == "__main__":
