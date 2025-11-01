@@ -397,7 +397,6 @@ MIT License - feel free to use this template for your projects.
 ### Documentation
 - [DOCKER.md](DOCKER.md) - Comprehensive Docker and dev container guide
 - [CONTRIBUTING.md](CONTRIBUTING.md) - Contributing guidelines
-- [QUICKSTART.md](QUICKSTART.md) - Quick start guide
 - [api/README.md](api/README.md) - API documentation
 - [cli/README.md](cli/README.md) - CLI documentation
 
