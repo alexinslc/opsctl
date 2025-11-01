@@ -15,19 +15,26 @@ A template repository for platform engineering projects using a monorepo structu
 
 ```
 opsctl/
+├── .github/
+│   └── workflows/
+│       └── ci.yml           # GitHub Actions CI workflow
 ├── packages/
-│   ├── api/              # FastAPI application
+│   ├── api/                 # FastAPI application
 │   │   ├── src/
 │   │   │   └── opsctl_api/
 │   │   ├── tests/
 │   │   └── pyproject.toml
-│   └── cli/              # Typer CLI application
+│   └── cli/                 # Typer CLI application
 │       ├── src/
 │       │   └── opsctl_cli/
 │       ├── tests/
 │       └── pyproject.toml
-├── pyproject.toml        # Workspace configuration
-└── pytest.ini           # Test configuration
+├── pyproject.toml           # Workspace configuration
+├── Makefile                 # Common development tasks
+├── docker-compose.yml       # Docker Compose for development
+├── Dockerfile.api           # Dockerfile for API service
+├── DEVELOPMENT.md           # Detailed development guide
+└── CONTRIBUTING.md          # Contribution guidelines
 ```
 
 ## 🛠️ Setup
@@ -48,6 +55,8 @@ cd opsctl
 2. Install dependencies:
 ```bash
 uv sync
+# or
+make install
 ```
 
 3. Install packages in development mode:
@@ -65,6 +74,8 @@ opsctl hello
 opsctl hello World
 opsctl version
 opsctl --help
+# or
+make run-cli
 ```
 
 ### API
@@ -72,6 +83,8 @@ opsctl --help
 Start the API server:
 ```bash
 uvicorn opsctl_api.main:app --reload
+# or
+make run-api
 ```
 
 The API will be available at:
@@ -86,16 +99,27 @@ curl http://localhost:8000/health
 curl http://localhost:8000/hello/World
 ```
 
+### Using Docker Compose
+
+Run the API with Docker Compose:
+```bash
+docker-compose up
+```
+
 ## 🧪 Testing
 
 Run all tests:
 ```bash
 uv run pytest
+# or
+make test
 ```
 
 Run tests with coverage:
 ```bash
-uv run pytest --cov=packages
+uv run pytest --cov=packages --cov-report=html
+# or
+make test-cov
 ```
 
 Run tests for a specific package:
@@ -109,21 +133,34 @@ uv run pytest packages/api/tests
 Run ruff linter:
 ```bash
 uv run ruff check .
+# or
+make lint
 ```
 
 Auto-fix linting issues:
 ```bash
 uv run ruff check --fix .
+# or
+make lint-fix
 ```
 
 Format code:
 ```bash
 uv run ruff format .
+# or
+make format
 ```
 
 Run type checking:
 ```bash
 uv run mypy packages/cli/src packages/api/src
+# or
+make typecheck
+```
+
+Run all checks:
+```bash
+make all
 ```
 
 ## 📦 Building
@@ -134,6 +171,16 @@ uv build packages/cli
 uv build packages/api
 ```
 
+Build Docker image for API:
+```bash
+docker build -t opsctl-api -f Dockerfile.api .
+```
+
+## 📚 Documentation
+
+- [DEVELOPMENT.md](DEVELOPMENT.md) - Detailed development guide
+- [CONTRIBUTING.md](CONTRIBUTING.md) - How to contribute to this project
+
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -141,6 +188,8 @@ uv build packages/api
 3. Make your changes
 4. Run tests and linting
 5. Submit a pull request
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
 
 ## 📄 License
 
