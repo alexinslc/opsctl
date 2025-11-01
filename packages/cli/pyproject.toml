@@ -1,0 +1,20 @@
+[project]
+name = "opsctl-cli"
+version = "0.1.0"
+description = "CLI tool built with Typer"
+readme = "README.md"
+authors = [
+    { name = "Alex Lutz", email = "alex@example.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "typer>=0.9.0",
+    "rich>=13.0.0",
+]
+
+[project.scripts]
+opsctl = "opsctl_cli.main:app"
+
+[build-system]
+requires = ["uv_build>=0.9.7,<0.10.0"]
+build-backend = "uv_build"

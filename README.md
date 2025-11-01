@@ -1,2 +1,147 @@
-# opsctl
-opsctl
+# OpsCtl - Platform Engineering Template
+
+A template repository for platform engineering projects using a monorepo structure with separate CLI and API packages.
+
+## 🚀 Technologies
+
+- **CLI**: [Typer](https://typer.tiangolo.com/) - Modern CLI framework
+- **API**: [FastAPI](https://fastapi.tiangolo.com/) - High-performance web framework
+- **Package Management**: [uv](https://docs.astral.sh/uv/) - Fast Python package manager
+- **Testing**: [pytest](https://docs.pytest.org/) - Testing framework
+- **Linting**: [ruff](https://docs.astral.sh/ruff/) - Fast Python linter
+- **Type Checking**: [mypy](https://mypy-lang.org/) - Static type checker
+
+## 📁 Project Structure
+
+```
+opsctl/
+├── packages/
+│   ├── api/              # FastAPI application
+│   │   ├── src/
+│   │   │   └── opsctl_api/
+│   │   ├── tests/
+│   │   └── pyproject.toml
+│   └── cli/              # Typer CLI application
+│       ├── src/
+│       │   └── opsctl_cli/
+│       ├── tests/
+│       └── pyproject.toml
+├── pyproject.toml        # Workspace configuration
+└── pytest.ini           # Test configuration
+```
+
+## 🛠️ Setup
+
+### Prerequisites
+
+- Python 3.12+
+- uv (install with `pip install uv`)
+
+### Installation
+
+1. Clone this repository:
+```bash
+git clone <repository-url>
+cd opsctl
+```
+
+2. Install dependencies:
+```bash
+uv sync
+```
+
+3. Install packages in development mode:
+```bash
+uv pip install -e packages/cli -e packages/api
+```
+
+## 📝 Usage
+
+### CLI
+
+Run the CLI:
+```bash
+opsctl hello
+opsctl hello World
+opsctl version
+opsctl --help
+```
+
+### API
+
+Start the API server:
+```bash
+uvicorn opsctl_api.main:app --reload
+```
+
+The API will be available at:
+- Main: http://localhost:8000
+- Docs: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
+
+Try the endpoints:
+```bash
+curl http://localhost:8000/
+curl http://localhost:8000/health
+curl http://localhost:8000/hello/World
+```
+
+## 🧪 Testing
+
+Run all tests:
+```bash
+uv run pytest
+```
+
+Run tests with coverage:
+```bash
+uv run pytest --cov=packages
+```
+
+Run tests for a specific package:
+```bash
+uv run pytest packages/cli/tests
+uv run pytest packages/api/tests
+```
+
+## 🔍 Linting and Type Checking
+
+Run ruff linter:
+```bash
+uv run ruff check .
+```
+
+Auto-fix linting issues:
+```bash
+uv run ruff check --fix .
+```
+
+Format code:
+```bash
+uv run ruff format .
+```
+
+Run type checking:
+```bash
+uv run mypy packages/cli/src packages/api/src
+```
+
+## 📦 Building
+
+Build the packages:
+```bash
+uv build packages/cli
+uv build packages/api
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests and linting
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
